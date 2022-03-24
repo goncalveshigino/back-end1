@@ -1,6 +1,9 @@
 const express = require('express');
 const app = express();
-const port = 3000;
+
+const server = require('http').Server(app);
+
+require('dotenv').config();
 
 app.set('views', __dirname + '/views')
 app.set('view engine', 'ejs');
@@ -11,4 +14,6 @@ app.get('/produtos', ( req, res) => {
     res.render('produtos', {title: 'Lista de Produtos'})
 });
 
-app.listen(port, () => console.log(`Aplicacao rodando na porta ${port}.`))
+server.listen(process.env.PORT, () =>{
+    console.log(`Rodando na porta ${ process.env.PORT}`)
+ });
