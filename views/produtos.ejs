@@ -22,29 +22,12 @@
 
                  <form method="POST">
                     <div class="row">
-                       <div class="col-6">
-
-                            <div class="form-group">
-                                <label for="inputNome">Nome</label>
-                                <input type="text" class="form-control" id="inputNome" name="nome"
-                                    placeholder="Entre com o nome...">
-                            </div>
-                       </div>
-                       <div class="col-6">
-                            <div class="form-group">
-                                <label for="inputNome">Valor Unitario</label>
-                                <input type="number" class="form-control" id="inputVl" name="vlUnit"
-                                placeholder="0,00">
-                            </div>
-                       </div>
-
-                       <div class="col-6">
-                            <div class="form-group">
-                                <label for="inputCodigo">Codigo de Barras</label>
-                                <input type="text" class="form-control" id="inputCodigo" name="codifoBarras"
-                                placeholder="0000000">
-                            </div>
-                       </div>
+                       
+                       <% if(locals.produto){ %>
+                         <%- include('produto-form-update', {produto: produto}); %>
+                       <% } else { %>
+                         <%- include('produto-form-create', {}); %>
+                       <% } %>
                        <div class="col-12 text-right">
                         <button type="submit" class="btn btn-primary">Salvar</button>
                        </div>
@@ -72,7 +55,7 @@
                         <td><%= produto.vlUnit %></td>
                         <td><%= produto.codigoBarras %></td>
                         <td>
-                            <button class="btn btn-sm btn-primary">Editar</button>
+                            <a href="./produtos/<%= produto._id%>" class="btn btn-sm btn-primary">Editar</a>
                             <button class="btn btn-sm btn-danger">Excluir</button>
                         </td>
                     </tr>

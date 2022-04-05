@@ -33,6 +33,55 @@ app.get('/produtos', ( req, res) => {
     })
 });
 
+app.get('/produtos/:id', ( req, res) => {
+    Produtos.findById(req.params.id, (err, produto) => {
+
+        if(err){
+            console.log(err)
+           return res.status(500).send('Erro ao consultar o produto.')
+        }
+
+    Produtos.find({}, (err, produtos) => {
+        if(err){
+            console.log(err)
+           return res.status(500).send('Erro ao consultar produtos.')
+        }
+        return res.render(
+            'produtos', 
+            {
+                produtos: produtos,
+                produto: produto
+            })
+    })
+  })
+});
+
+app.post('/produtos/:id', (req,res) =>{
+
+    Produtos.findById(req.params.id, (err, produto) => {
+
+        if(err){
+            console.log(err)
+           return res.status(500).send('Erro ao consultar o produto.')
+        }
+    
+    let { nome, vlUnit, codigoBarras } = req.body;
+
+    produto.nome = nome;
+    produto.vlUnit = vlUnit;
+    produto.codigoBarras = codigoBarras;
+
+    produto.save( err =>{
+        if(err){
+            return res.status(500).send("erro ao salvar o produto")
+        }
+        return res.redirect('/produtos')
+    })
+  })
+})
+
+
+
 app.post('/produtos', (req,res) =>{
     
     const { nome, vlUnit, codigoBarras } = req.body;
